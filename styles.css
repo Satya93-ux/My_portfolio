@@ -2,15 +2,15 @@
    CSS Variables & Root Styles
 ============================================ */
 :root {
-    /* Color Palette - Neon Cyber Theme */
-    --primary: #00f0ff;
-    --primary-rgb: 0, 240, 255;
-    --secondary: #ff00aa;
-    --secondary-rgb: 255, 0, 170;
-    --accent: #ffee00;
-    --accent-rgb: 255, 238, 0;
-    --success: #00ff88;
-    --success-rgb: 0, 255, 136;
+    /* Color Palette - Premium Theme */
+    --primary: #2563eb; /* Royal Blue */
+    --primary-rgb: 37, 99, 235;
+    --secondary: #10b981; /* Emerald Green */
+    --secondary-rgb: 16, 185, 129;
+    --accent: #f59e0b; /* Gold */
+    --accent-rgb: 245, 158, 11;
+    --success: #10b981;
+    --success-rgb: 16, 185, 129;
     
     /* Background Colors */
     --bg-dark: #0a0a0f;
@@ -904,6 +904,8 @@ input, textarea {
 .hero-left {
     position: relative;
     z-index: 2;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
 }
 
 .hero-badge {
@@ -1243,51 +1245,32 @@ input, textarea {
     }
 }
 
-/* Experience Card */
-.experience-card {
+/* Subtle Image Tagline */
+.image-tagline {
     position: absolute;
     bottom: -30px;
     right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 25px;
-    background: var(--gradient-primary);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--glow-primary);
-}
-
-.exp-icon {
-    width: 50px;
-    height: 50px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.exp-icon i {
-    font-size: 1.5rem;
-    color: var(--bg-dark);
-}
-
-.exp-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.exp-value {
+    font-size: 0.9rem;
     font-family: var(--font-primary);
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--bg-dark);
-    line-height: 1;
+    color: var(--text-muted);
+    font-style: italic;
+    background: rgba(10, 10, 15, 0.6);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    animation: slideUpFade 0.8s 1.2s ease forwards;
+    z-index: 10;
 }
 
-.exp-text {
-    font-size: 0.8rem;
-    color: rgba(0, 0, 0, 0.7);
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Hero Scroll Indicator */
@@ -1511,6 +1494,103 @@ input, textarea {
 }
 
 /* ============================================
+   Services Section
+============================================ */
+.services {
+    padding: var(--section-padding) 0;
+    position: relative;
+    z-index: 10;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.service-showcase-card {
+    background: var(--bg-card);
+    padding: 50px;
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-normal);
+    z-index: 1;
+}
+
+.service-showcase-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.03), transparent);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.service-showcase-card.mobile-card {
+    border-top: 4px solid var(--primary); /* Blue for Apps */
+}
+
+.service-showcase-card.web-card {
+    border-top: 4px solid var(--secondary); /* Green for Web */
+}
+
+.service-showcase-card:hover {
+    transform: translateY(-8px);
+}
+
+.service-showcase-card.mobile-card:hover {
+    box-shadow: 0 15px 40px rgba(var(--primary-rgb), 0.2);
+}
+
+.service-showcase-card.web-card:hover {
+    box-shadow: 0 15px 40px rgba(var(--secondary-rgb), 0.2);
+}
+
+.service-showcase-card .card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    transition: var(--transition-normal);
+}
+
+.service-showcase-card.mobile-card .card-icon {
+    background: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary);
+}
+
+.service-showcase-card.web-card .card-icon {
+    background: rgba(var(--secondary-rgb), 0.1);
+    color: var(--secondary);
+}
+
+.service-showcase-card:hover .card-icon {
+    transform: scale(1.1);
+}
+
+.service-showcase-card h3 {
+    font-size: 1.5rem;
+    font-family: var(--font-primary);
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.service-showcase-card p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* ============================================
    About Section
 ============================================ */
 .about {
@@ -1716,6 +1796,25 @@ input, textarea {
 
 .skills-header .section-subtitle {
     margin: 0 auto;
+}
+
+/* Skills Category */
+.skills-category {
+    margin-bottom: 60px;
+}
+
+.category-title {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: var(--font-primary);
+}
+
+.category-title i {
+    font-size: 1.8rem;
 }
 
 /* Skills Grid */
